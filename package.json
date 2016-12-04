@@ -1,0 +1,23 @@
+{
+  "name": "react-js-essential",
+  "version": "1.0.0",
+  "description": "Изучение react.js часть 2 (essential)",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github:deader/react-js-essential.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "deader",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.9.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
+  }
+}
