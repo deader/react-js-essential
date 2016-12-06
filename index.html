@@ -4,28 +4,111 @@
 <head>
     <meta charset="utf-8">
     <title>Hello World</title>
+    <link rel="shortcut icon" href="favicon.ico">
 
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
 </head>
 
 <body>
-    
+    <div id="scripts"></div>
+
     <div id="content"></div>
 
-    <script type="text/babel">
-        var HelloWorld = React.createClass({
-            render: function() {
-                return <h1> Hello World! </h1>;
-            }
+    <!--<script src="test1.js" type="text/babel"></script>-->
+    <!--<script src="test2.js" type="text/babel"></script>-->
+    <!--<script>$( "#scripts" ).load( "test2.js" );</script>-->
+
+<script type="text/babel">
+// Урок 1-2
+
+var CONTACTS = [
+    {
+        id: 1,
+        name: 'Darth Vader',
+        phoneNumber: '+250966666666',
+        image: 'http://cs7.pikabu.ru/images/big_size_comm_an/2014-03_7/13962622876915.gif'
+    },
+    {
+        id: 2,
+        name: 'Princess Leia',
+        phoneNumber: '+250966344466',
+        image: 'http://cs7.pikabu.ru/images/big_size_comm_an/2014-03_7/13962622876915.gif'
+    },
+    {
+        id: 3,
+        name: 'Luke Skywalker',
+        phoneNumber: '+250976654433',
+        image: 'http://cs7.pikabu.ru/images/big_size_comm_an/2014-03_7/13962622876915.gif'
+    },
+    {
+        id: 4,
+        name: 'Chewbacca',
+        phoneNumber: '+250456788935',
+        image: 'http://cs7.pikabu.ru/images/big_size_comm_an/2014-03_7/13962622876915.gif'
+    }
+];
+
+var Contact = React.createClass({
+    render: function() {
+        return (
+            <li className="contact"> 
+                <img className="contact-image" src={this.props.image} width="60px" height="60px" />
+                <div className="contact-name"> {this.props.name} </div>
+                <div className="contact-number"> {this.props.phoneNumber} </div>             
+            </li>
+        );
+    }
+});
+
+var ContactsList = React.createClass({
+    getInitialState: function() {
+        return {
+            displayedContacts: CONTACTS
+        };
+    },
+
+    handleSearch: function(event) {
+        var searchQuery = event.target.value.toLowerCase();
+        var displayedContacts = CONTACTS.filter(function(el) {
+            var searchValue = el.name.toLowerCase();
+            return searchValue.indexOf(searchQuery) !== -1;
         });
 
-        ReactDOM render(
-            <HelloWorld />,
-            document.getElementById('content')
+        this.setState({
+            displayedContacts: displayedContacts
+        });
+    },
+
+    render: function() {
+        return (
+            <div className="contacts">
+                <input type="text" className="search-field" onChange={this.handleSearch} />
+                <ul className="contact-list">
+                    {
+                        this.state.displayedContacts.map(function(el) {
+                            return <Contact 
+                                key={el.id} 
+                                name={el.name}
+                                phoneNumber={el.phoneNumber}
+                                image={el.image} 
+                            />;
+                        })
+                    }
+                </ul>
+            </div>
         );
-    </script>
+     }
+});
+
+ReactDOM.render(
+    <ContactsList />,
+    document.getElementById("content")
+);
+
+</script>
 
 </body>
 </html>
